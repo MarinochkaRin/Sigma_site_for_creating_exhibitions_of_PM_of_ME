@@ -1,0 +1,36 @@
+version: '3.3'
+services:
+  localstack:
+    image: localstack/localstack:0.11.4
+    ports:
+      - 4572:4572
+    environment:
+      SERVICES: s3
+      DATA_DIR: /data
+    volumes:
+      - type: volume
+        source: localstack
+        target: /data
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: exhibitions
+
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
+
+  your-application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  localstack: {}

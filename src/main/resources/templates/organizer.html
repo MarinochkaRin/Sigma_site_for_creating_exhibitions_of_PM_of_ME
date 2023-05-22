@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link href="/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/organizer-navigation :: navbar"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div th:replace="fragments/organizer-navigation :: sidebar"></div>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div th:replace="fragments/alert :: alert"></div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>$totalIds</th>
+          <th scope="col">Theme</th>
+          <th scope="col">Location</th>
+          <th scope="col">Date</th>
+          <th scope="col">Working hours</th>
+          <th scope="col">Ticket price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tbody>
+        <tr th:each="exhibitionDto:${exhibitions}">
+          <th>
+            <div class="btn-group" role="group" aria-label="EditCancel">
+              <button type="button" class="btn btn-outline-primary">Edit</button>
+              <button type="button" class="btn btn-outline-danger">Cancel</button>
+            </div>
+          </th>
+          <td th:text="${exhibitionDto.theme}">Theme</td>
+          <td>
+            <ul class="list-unstyled" th:each="location:${exhibitionDto.locations}">
+              <li th:text="${location.name}">Location</li>
+            </ul>
+          </td>
+          <td>
+            <ul class="list-unstyled">
+              <li th:text="${exhibitionDto.startDate}"></li>
+              <li th:text="${exhibitionDto.endDate}"></li>
+            </ul>
+          </td>
+          <td>
+            <ul class="list-unstyled">
+              <li th:text="${exhibitionDto.openingHour}"></li>
+              <li th:text="${exhibitionDto.closingHour}"></li>
+            </ul>
+          </td>
+
+          <td th:text="${exhibitionDto.ticketPrice}">Ticket Price</td>
+          <td>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col" th:text="${numberOfUsers}"></th>
+          <th scope="col">Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+          <th scope="row" th:text="${user.id}">Id</th>
+          <td th:text="${user.username}">Name</td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Exhibition</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order:${orders}">
+          <th scope="row" th:text="${order.id}">Id</th>
+          <td th:text="${order.user.username}">Username</td>
+          <td th:text="${order.exhibitionDto}">Exhibition</td>
+        </tr>
+        </tbody>
+      </table>
+    </main>
+
+  </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

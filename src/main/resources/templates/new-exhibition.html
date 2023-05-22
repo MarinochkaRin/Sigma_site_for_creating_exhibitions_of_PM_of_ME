@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New exhibitionDto</title>
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    &lt;!&ndash; Custom styles for this template &ndash;&gt;
+&lt;!&ndash;    <link href="admin.css" rel="stylesheet">&ndash;&gt;-->
+</head>
+<body>
+<div th:replace="fragments/organizer-navigation :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/organizer-navigation :: sidebar"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="container align-middle">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <form>
+                            <div class="row g-2 py-3">
+                                <div class="col-md">
+                                    <div class="form-floating">
+                                        <input name="startDate"type="date" class="form-control" id="start" placeholder="Start" required>
+                                        <label for="start">Start date:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating">
+                                        <input name="endDate" type="date" class="form-control" id="end" placeholder="End" required>
+                                        <label for="end">End date:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 py-3">
+                                <div class="col-md">
+                                    <button class="btn btn-outline-info col-12" type="submit">Check available locations</button>
+                                </div>
+                            </div>
+                            <div class="row g-2 py-3">
+                                <div class="col-md">
+                                    <div class="form-check"  required>
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Name of the HALL
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 py-3">
+                                <div class="form-floating">
+                                    <input name="theme" type="text" class="form-control" id="theme" placeholder="Theme" required>
+                                    <label for="theme">Exhibition theme:</label>
+                                </div>
+                            </div>
+                            <div class="row g-2 py-3">
+                                <div class="col-md">
+                                    <div class="form-floating">
+                                        <input name="openingHour" type="time" class="form-control" id="open" placeholder="Open" required>
+                                        <label for="open">Opening hour:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating">
+                                        <input name="closingHour" type="time" class="form-control" id="close" placeholder="Close" required>
+                                        <label for="close">Closing hour:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 py-3 justify-content-end">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input name="ticketPrice" type="number" class="form-control" id="price" placeholder="Price" required>
+                                        <label for="open">Ticket price:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 py-3">
+                                <div class="col-md">
+                                    <button th:text="cancel" class="btn btn-outline-warning col-12" type="submit">Cancel</button>
+                                </div>
+                                <div class="col-md">
+                                    <button th:text="add" class="btn btn-outline-success col-12" type="submit">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </main>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

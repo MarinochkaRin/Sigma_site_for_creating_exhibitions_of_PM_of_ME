@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Users</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  Custom styles for this template
+  <link href="/css/signin.css" rel="stylesheet">
+</head>
+<body class="text-center">
+<main class="form-signin">
+  <div th:replace="fragments/alert :: alert"></div>
+  <form th:action="@{/register}" method="post" enctype="multipart/form-data">
+  <h1 th:text="#{register.label}" class="h3 mb-3 fw-normal">New user registration</h1>
+    <div class="form-floating">
+      <input type="text" class="form-control" name="firstName" id="floatingFirstName" placeholder="First Name" required>
+      <label th:text="#{firstName}" for="floatingFirstName">First Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" name="lastName" id="floatingLastName" placeholder="Last Name" required>
+      <label th:text="#{secondName}" for="floatingLastName">Last Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" name="city" id="floatingCity" placeholder="City" required>
+      <label th:text="#{locationPerson}" for="floatingCity">City</label>
+    </div>
+    <div class="form-floating">
+      <input type="file" class="form-control" name="photo" id="floatingPhoto" required>
+      <label th:text="#{photoId}" for="floatingPhoto">Photo</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" required>
+      <label th:text="#{username}" for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
+      <label th:text="#{password}" for="floatingPassword">Password</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" name="retypedPassword" id="floatingPasswordRetype" placeholder="Retype password" required>
+      <label th:text="#{retype_password}" for="floatingPassword">Retype password</label>
+    </div>
+    <div class="form-floating">
+      <select class="form-select" name="role" id="floatingRole" required>
+        <option value="ORGANIZER">Organizer</option>
+        <option value="MODELLER">Modeller</option>
+        <option value="USER">User</option>
+      </select>
+      <label for="floatingRole">Role</label>
+    </div>
+    <button th:text="#{register}" class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+  </form>
+</main>
+</body>
+</html>

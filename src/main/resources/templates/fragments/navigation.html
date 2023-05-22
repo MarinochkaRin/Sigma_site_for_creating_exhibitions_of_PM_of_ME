@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<head>
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-primary" th:fragment="navbar">
+        <div class="container">
+            <form action="/" method="GET">
+                <button type="submit" class="navbar-brand btn btn-link">Exhibitions App</button>
+            </form>
+            <span th:if="${username}" th:text="#{welcome_user} + ' ' + ${username} + '!'" class="navbar-text"></span>
+            <span th:unless="${username}" th:text="#{welcome}" class="navbar-text"></span>
+            <div class=" d-flex ms-auto">
+                <a th:if=${username} th:text="#{view_orders}" href="/orders" role="button" class="btn btn-outline-secondary ms-2">View orders</a>
+                <a th:if=${username} th:text="#{profile}" href="/profile" role="button" class="btn btn-outline-secondary ms-2">Profile</a>
+                <div class="dropdown ms-2">
+
+                <a th:unless=${username} th:text="#{signin}" href="/signin" role="button" class="btn btn-primary ms-2">Sign in</a>
+                <a th:if=${username} th:text="#{signout}" href="/signout" role="button" class="btn btn-primary ms-2">Sign out</a>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
