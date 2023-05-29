@@ -9,16 +9,16 @@
     <link href="/css/admin.css" rel="stylesheet">
 </head>
 <body>
-<div th:replace="fragments/organizer-navigation :: navbar"></div>
+<div th:replace="fragments/admin-navigation :: navbar"></div>
 <div class="container-fluid">
     <div class="row">
-        <div th:replace="fragments/organizer-navigation :: sidebar"></div>
+        <div th:replace="fragments/admin-navigation :: sidebar"></div>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="container ">
                 <div th:replace="fragments/alert :: alert"></div>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form th:action="@{/organizer/exhibitions/cancel/}  + ${id}" method="post">
+                        <form th:action="@{/admin/exhibitions/cancel/}  + ${id}" method="post">
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <h5 th:text="#{really_cancel}">Really cancel?</h5>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <a th:text="#{back}" href="/organizer/exhibitions" class="btn btn-outline-warning col-12" role="button">Back</a>
+                                    <a th:text="#{back}" href="/admin/exhibitions" class="btn btn-outline-warning col-12" role="button">Back</a>
                                 </div>
                                 <div class="col-md">
                                     <button th:text="#{cancel_exhibition}" class="btn btn-outline-info col-12" type="submit">Cancel exhibitionDto</button>

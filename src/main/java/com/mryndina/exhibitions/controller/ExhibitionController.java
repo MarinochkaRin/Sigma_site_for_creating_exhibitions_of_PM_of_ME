@@ -134,7 +134,7 @@ public class ExhibitionController {
     public String getCancelExhibition (@PathVariable int id, Model model) {
         long orders = orderService.countByExhibitionId(id);
         model.addAttribute("orders", orders);
-        return "cancel-exhibition";
+        return "organizer-cancel-exhibitions";
     }
 
     @PostMapping("/exhibitions/cancel/{id}")

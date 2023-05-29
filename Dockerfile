@@ -13,13 +13,13 @@
 
 #COPY ROOT.war /usr/local/tomcat/webapps/
 # Используем образ с установленной Java 17
-FROM adoptopenjdk:20-jdk-hotspot
+FROM amazoncorretto:17
 
 # Установка рабочей директории внутри контейнера
 WORKDIR /app
 
 # Копируем скомпилированный JAR файл приложения в контейнер
-COPY ./out/artifacts/exhibitions_jar/exhibitions.jar ./app/exhibitions.jar
+COPY ./out/artifacts/exhibitions_jar/exhibitions.jar ./exhibitions.jar
 
 # Запуск приложения при старте контейнера
-CMD ["java", "-jar", "/app/exhibitions.jar"]
+ENTRYPOINT ["java", "-jar", "/app/exhibitions.jar"]

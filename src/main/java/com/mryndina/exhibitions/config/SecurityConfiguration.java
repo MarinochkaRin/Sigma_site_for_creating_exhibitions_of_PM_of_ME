@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/exhibitions", "/exhibitions/*", "/register", "/h2-console/*", "/css/*").permitAll()
                 .antMatchers("/admin", "/admin/*").hasAuthority("ADMIN")
                 .antMatchers("/organizer","/organizer/*").hasAuthority("ORGANIZER")
-                .antMatchers("/modeller","/modeller/*").hasAuthority("MODELLER")
+                .antMatchers("/modeller","/modeller*").hasAuthority("MODELLER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ORGANIZER"))) {
                         response.sendRedirect("/organizer");
                     } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("MODELLER"))) {
-                        response.sendRedirect("/modeller");
+                        response.sendRedirect("/modeller/model");
                     } else {
                         response.sendRedirect("/");
                     }

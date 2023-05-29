@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/modeller-navigation :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/modeller-navigation :: sidebar"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="container my-5">
+                <h3>Add Publisher</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-10">
+                            <form action="#" th:action="@{/modeller/add-publisher}" th:object="${publisher}" method="post">
+                                <div class="row">
+
+                                    <div class="form-group col-md-8">
+                                        <label for="name" class="col-form-label">Publisher Name</label>
+                                        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Publisher Name" />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <input type="submit" class="btn btn-primary" value=" Submit ">
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
