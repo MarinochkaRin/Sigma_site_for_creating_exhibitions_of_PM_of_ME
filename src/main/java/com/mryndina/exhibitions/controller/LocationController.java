@@ -39,6 +39,6 @@ public class LocationController {
         Location location = new Location();
         location.setName(locationName);
         locationService.createLocation(location);
-        return "redirect:/organizer/locations";
+        return "redirect:/admin/locations";
     }
 }

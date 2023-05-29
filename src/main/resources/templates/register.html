@@ -20,7 +20,7 @@
       }
     }
   </style>
-  Custom styles for this template
+
   <link href="/css/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
@@ -33,17 +33,17 @@
       <label th:text="#{firstName}" for="floatingFirstName">First Name</label>
     </div>
     <div class="form-floating">
-      <input type="text" class="form-control" name="lastName" id="floatingLastName" placeholder="Last Name" required>
+      <input type="text" class="form-control" name="secondName" id="floatingLastName" placeholder="Last Name" required>
       <label th:text="#{secondName}" for="floatingLastName">Last Name</label>
     </div>
     <div class="form-floating">
-      <input type="text" class="form-control" name="city" id="floatingCity" placeholder="City" required>
+      <input type="text" class="form-control" name="locationPerson" id="floatingCity" placeholder="City" required>
       <label th:text="#{locationPerson}" for="floatingCity">City</label>
     </div>
-    <div class="form-floating">
-      <input type="file" class="form-control" name="photo" id="floatingPhoto" required>
+<!--    <div class="form-floating">
+      <input type="file" class="form-control" name="photoId" id="floatingPhoto" required>
       <label th:text="#{photoId}" for="floatingPhoto">Photo</label>
-    </div>
+    </div>-->
     <div class="form-floating">
       <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" required>
       <label th:text="#{username}" for="floatingInput">Username</label>

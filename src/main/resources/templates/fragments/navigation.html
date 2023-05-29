@@ -6,7 +6,7 @@
     <nav class="navbar navbar-dark sticky-top bg-primary" th:fragment="navbar">
         <div class="container">
             <form action="/" method="GET">
-                <button type="submit" class="navbar-brand btn btn-link">Exhibitions App</button>
+                <button type="submit" class="navbar-brand btn btn-link">PaperExhibitHub</button>
             </form>
             <span th:if="${username}" th:text="#{welcome_user} + ' ' + ${username} + '!'" class="navbar-text"></span>
             <span th:unless="${username}" th:text="#{welcome}" class="navbar-text"></span>

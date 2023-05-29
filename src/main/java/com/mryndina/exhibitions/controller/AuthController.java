@@ -17,6 +17,7 @@ import java.util.Map;
 @Controller
 @AllArgsConstructor
 @RequestMapping
+
 public class AuthController {
     private final UserService userService;
 
@@ -61,7 +62,7 @@ public class AuthController {
             userService.createModeller(body.get("username"), body.get("password"));
             redirectAttributes.addFlashAttribute("message", "modeller_created");
         } else {
-            userService.createUser(body.get("username"), body.get("password"),body.get("photoid"), body.get("firstname"), body.get("secondname"));
+            userService.createUser(body.get("username"), body.get("password"),body.get("photoId"), body.get("firstName"), body.get("secondName") , body.get("locationPerson"));
             redirectAttributes.addFlashAttribute("message", "user_registered");
         }
 

@@ -59,6 +59,11 @@
 			<version>1.18.24</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.12.429</version>
+		</dependency>
 <!--		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
@@ -95,11 +100,6 @@
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<version>4.6.1</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.mryndina</groupId>
-			<artifactId>exhibitions</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

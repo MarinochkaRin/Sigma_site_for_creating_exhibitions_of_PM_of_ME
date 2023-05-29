@@ -38,16 +38,17 @@ public class UserService {
 
 
     @Transactional
-    public void createUser(String username, String password,String photoid, String firstname, String secondName) {
+    public void createUser(String username, String password,String photoId, String firstName, String secondName, String locationPerson) {
         if(userRepository.countByUsername(username) == 0) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(passwordEncoder.encode(password));
+            user.setPhotoId(photoId);
+            user.setFirstName(firstName);
+            user.setSecondName(secondName);
+            user.setLocationPerson(locationPerson);
             user.setRole(Role.USER);
             userRepository.save(user);
-            user.setPhotoId(photoid);
-            user.setFirstName(firstname);
-            user.setSecondName(secondName);
             log.info("User created: {}", user.getUsername());
         }
     }

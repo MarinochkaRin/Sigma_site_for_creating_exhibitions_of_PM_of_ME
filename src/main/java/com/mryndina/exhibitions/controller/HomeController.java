@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @AllArgsConstructor
 @RequestMapping
 @SessionAttributes({"search", "cart"})
+
 public class HomeController {
 
     private final ExhibitionService exhibitionService;

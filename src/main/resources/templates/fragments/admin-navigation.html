@@ -5,7 +5,7 @@
 <body>
 <nav class="navbar navbar-dark sticky-top bg-primary" th:fragment="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0" href="#">Exhibitions App</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0" href="#">PaperExhibitHub</a>
         <a th:text="#{signout}" href="/signout" role="button" class="btn btn-primary">Sign out</a>
     </div>
 </nav>
@@ -21,6 +21,10 @@
                 <a th:text="#{exhibitions}" class="nav-link" href="/admin/exhibitions">
                     Exhibitions
                 </a>
+            </li>
+            <li class="nav-item">
+                <a th:text="#{models}" class="nav-link" href="/admin/model">
+                   </a>
             </li>
             <li class="nav-item">
                 <a th:text="#{locations}" class="nav-link" href="/admin/locations">
