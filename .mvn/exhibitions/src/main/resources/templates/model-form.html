@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Model</title>
+</head>
+<body>
+<h1>Create Model</h1>
+
+<form action="/models/new" method="post" enctype="multipart/form-data">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required/>
+  </div>
+
+  <div>
+    <label for="type">Type:</label>
+    <input type="number" id="type" name="type" required/>
+  </div>
+
+  <div>
+    <label for="scale">Scale:</label>
+    <input type="number" id="scale" name="scale" required/>
+  </div>
+
+  <div>
+    <label for="publisher">Publisher:</label>
+    <input type="text" id="publisher" name="publisher" required/>
+  </div>
+
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea>
+  </div>
+
+  <div>
+    <label for="photoFile">Photo:</label>
+    <input type="file" id="photoFile" name="photoFile"/>
+  </div>
+
+  <div>
+    <label for="createdBy">Created By:</label>
+    <input type="number" id="createdBy" name="createdBy" required/>
+  </div>
+
+  <button type="submit">Create</button>
+</form>
+</body>
+</html>

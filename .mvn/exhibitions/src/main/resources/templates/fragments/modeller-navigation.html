@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<head>
+</head>
+<body>
+<nav class="navbar navbar-dark sticky-top bg-primary" th:fragment="navbar">
+  <div class="container-fluid">
+    <form action="/" method="GET">
+      <button type="submit" class="navbar-brand btn btn-link">PaperExhibitHub</button>
+    </form>
+    <a th:text="#{signout}" href="/signout" role="button" class="btn btn-primary">Sign out</a>
+  </div>
+</nav>
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:fragment="sidebar">
+  <div class="position-sticky pt-3">
+<!--    <ul class="nav flex-column">-->
+<!--      <li class="nav-item">-->
+<!--        <a th:text="#{authors}" class="nav-link" href="/modeller/authors">-->
+<!--          Exhibitions-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li class="nav-item">-->
+<!--        <a th:text="#{publishers}" class="nav-link" href="/modeller/publishers">-->
+<!--          Orders-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a th:text="#{models}" class="nav-link" href="/modeller/model">
+
+        </a>
+      </li>
+      <li class="nav-item">
+        <a th:text="#{categories}" class="nav-link" href="/modeller/categories">
+
+        </a>
+      </li>
+    </ul>
+<!--    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">-->
+ <!--     <span th:text="#{new_model}">New exhibition</span>-->
+<!--      <a class="link-secondary" href="/organizer/exhibitions/new" aria-label="New exhibition">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+      </a>-->
+  </div>
+</nav>
+</body>
+</html>
