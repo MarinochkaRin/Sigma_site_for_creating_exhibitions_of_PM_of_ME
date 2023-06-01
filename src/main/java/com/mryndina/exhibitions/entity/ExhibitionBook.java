@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "exhibitions_books")
+@Table(name = "exhibitions_modelss")
 public class ExhibitionBook {
 
     @Id
@@ -26,7 +26,7 @@ public class ExhibitionBook {
     private Exhibition exhibition;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "models_id")
     private Book book;
 
 

@@ -197,7 +197,7 @@ public class AdminController {
     }
 
     @RequestMapping("/remove-book/{id}")
-    public String deleteBook(@PathVariable("id") Long id, Model model) {
+    public String deleteBook(@PathVariable("id") int id, Model model) {
         modelService.deleteBook(id);
 
         model.addAttribute("book", modelService.findAllBooks());

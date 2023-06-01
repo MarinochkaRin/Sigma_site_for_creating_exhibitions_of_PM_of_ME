@@ -10,12 +10,12 @@ public interface ModelService {
 	
 	public List<Book> searchBooks(String keyword);
 
-	public Book findBookById(Long id);
+	public Book findBookById(int id);
 
 	public void createBook(Book book);
 
 	public void updateBook(Book book);
 
-	public void deleteBook(Long id);
+	public void deleteBook(int id);
 
 }

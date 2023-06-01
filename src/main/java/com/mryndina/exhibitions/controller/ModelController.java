@@ -52,7 +52,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/book/{id}")
-	public String findBookById(@PathVariable("id") Long id, Model model) {
+	public String findBookById(@PathVariable("id") int id, Model model) {
 		final Book book = modelService.findBookById(id);
 
 		model.addAttribute("book", book);
@@ -79,7 +79,7 @@ public class ModelController {
 	}
 
 	@GetMapping("/update/{id}")
-	public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+	public String showUpdateForm(@PathVariable("id") int id, Model model) {
 		final Book book = modelService.findBookById(id);
 
 		model.addAttribute("book", book);
@@ -87,7 +87,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/update-book/{id}")
-	public String updateBook(@PathVariable("id") Long id, Book book, BindingResult result, Model model) {
+	public String updateBook(@PathVariable("id") int id, Book book, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			book.setId(id);
 			return "update-book";
@@ -99,7 +99,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/remove-book/{id}")
-	public String deleteBook(@PathVariable("id") Long id, Model model) {
+	public String deleteBook(@PathVariable("id") int id, Model model) {
 		modelService.deleteBook(id);
 
 		model.addAttribute("book", modelService.findAllBooks());

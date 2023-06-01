@@ -1,5 +1,8 @@
 package com.mryndina.exhibitions.controller;
 
+import com.mryndina.exhibitions.entity.Book;
+import com.mryndina.exhibitions.entity.Exhibition;
+import com.mryndina.exhibitions.entity.ExhibitionBook;
 import com.mryndina.exhibitions.repository.ModelRepository;
 import com.mryndina.exhibitions.repository.ExhibitionBookRepository;
 import com.mryndina.exhibitions.repository.ExhibitionRepository;
@@ -35,10 +38,9 @@ public class ExhibitionBookController {
     }
 
     @PostMapping("/add")
-    public String addExhibitionBook(@RequestParam("exhibitionId") int id, @RequestParam("bookId") Long bookId) {
-/*
+    public String addExhibitionBook(@RequestParam("exhibitionId") int id, @RequestParam("bookId") int bookId) {
         Exhibition exhibition = exhibitionRepository.findById(id);
-        Book book = modelRepository.findById(bookId).orElse(null);
+        Book book = modelRepository.findById(bookId);
 
         if (exhibition != null && book != null) {
             ExhibitionBook exhibitionBook = new ExhibitionBook();
@@ -46,7 +48,6 @@ public class ExhibitionBookController {
             exhibitionBook.setBook(book);
             exhibitionBookRepository.save(exhibitionBook);
         }
-*/
 
         return "redirect:/organizer";
     }

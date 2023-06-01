@@ -28,14 +28,11 @@ public class ModelServiceImpl implements ModelService {
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@Override
 	public List<Book> searchBooks(String keyword) {
-		if (keyword != null) {
-			return modelRepository.search(keyword);
-		}
-		return modelRepository.findAll();
+				return modelRepository.findAll();
 	}
 
 	@Override
-	public Book findBookById(Long id) {
+	public Book findBookById(int id) {
 		return null;
 	}
 
@@ -50,11 +47,10 @@ public class ModelServiceImpl implements ModelService {
 	}
 
 	@Override
-	public void deleteBook(Long id) {
-		final Book book = modelRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException(String.format("Book not found with ID %d", id)));
+	public void deleteBook(int id) {
+		final Book book = modelRepository.findById(id);
 
-		modelRepository.deleteById(book.getId());
+		modelRepository.deleteById((long) book.getId());
 	}
 
 }

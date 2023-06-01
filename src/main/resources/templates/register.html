@@ -26,7 +26,7 @@
 <body class="text-center">
 <main class="form-signin">
   <div th:replace="fragments/alert :: alert"></div>
-  <form th:action="@{/register}" method="post" enctype="multipart/form-data">
+  <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${file}">
   <h1 th:text="#{register.label}" class="h3 mb-3 fw-normal">New user registration</h1>
     <div class="form-floating">
       <input type="text" class="form-control" name="firstName" id="floatingFirstName" placeholder="First Name" required>
@@ -40,10 +40,10 @@
       <input type="text" class="form-control" name="locationPerson" id="floatingCity" placeholder="City" required>
       <label th:text="#{locationPerson}" for="floatingCity">City</label>
     </div>
-<!--    <div class="form-floating">
-      <input type="file" class="form-control" name="photoId" id="floatingPhoto" required>
+    <div class="form-floating">
+      <input type="file" class="form-control" name="photoId" id="floatingPhoto" accept="file/*" required th:field="*{filename}">
       <label th:text="#{photoId}" for="floatingPhoto">Photo</label>
-    </div>-->
+    </div>
     <div class="form-floating">
       <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Username" required>
       <label th:text="#{username}" for="floatingInput">Username</label>
