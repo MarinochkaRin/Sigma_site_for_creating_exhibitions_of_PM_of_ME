@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add image</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/organizer-navigation :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/organizer-navigation :: sidebar"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div th:replace="fragments/alert :: alert"></div>
+
+            <div class="my-5">
+                <div class="mx-auto w-25 " style="max-width:100%;">
+                    <h2 class="text-center mb-3">Add Image</h2>
+                    <form action="add" method="post" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="image" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
+                            <button class="btn btn-outline-secondary" type="submit" >Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

@@ -22,10 +22,11 @@
         <label for="role">Role:</label>
         <input type="text" id="role" class="form-control" th:value="${user.role}" readonly>
       </div>
-      <div class="form-group">
-        <label for="photoId">Photo ID:</label>
-        <input type="text" id="photoId" class="form-control" th:value="${user.photoId}" readonly>
-      </div>
+<!--      <div class="form-group">
+        <label for="photoId">Photo:</label>
+&lt;!&ndash;        <img id="photoId" class="form-control" th:value="${user.photoId}" >&ndash;&gt;
+        <img th:src="@{/image/{photoId}  (photoId=${user.photoId})}" class="bd-placeholder-img card-img-top" width="100%" height="225">
+      </div>-->
     </div>
     <div class="col-md-6">
       <div class="form-group">

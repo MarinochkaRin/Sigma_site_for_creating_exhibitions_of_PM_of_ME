@@ -27,11 +27,19 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 th:text="#{users_admins}" class="card-title">Users / Admins</h5>
-                            <h1 th:text="${totalUsers} + ' / ' + ${totalAdmins}" class="card-text">00</h1>
+                            <h5 th:text="#{profit}" class="card-title">Profit</h5>
+                            <h1 th:text="${profit}" class="card-text">00</h1>
                         </div>
                     </div>
                 </div>
+ <!--               <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 th:text="#{users_admins}" class="card-title">Users / Admins / Modelle</h5>
+                            <h1 th:text="${totalUsers} + ' / ' + ${totalAdmins}+ ' / ' + ${totalModeller}" class="card-text">00</h1>
+                        </div>
+                    </div>
+                </div>-->
             </div>
             <div class="row py-2">
                 <div class="col-sm-6">
@@ -42,14 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 th:text="#{profit}" class="card-title">Profit</h5>
-                            <h1 th:text="${profit}" class="card-text">00</h1>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
         </main>

@@ -8,11 +8,11 @@ import com.mryndina.exhibitions.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/model")
-	public String findAllBooks(Model model) {
+	public String findAllBooks(org.springframework.ui.Model model) {
 		final List<Book> books = modelService.findAllBooks();
 
 		model.addAttribute("books", books);
@@ -43,7 +43,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/searchBook")
-	public String searchBook(@Param("keyword") String keyword, Model model) {
+	public String searchBook(@Param("keyword") String keyword, org.springframework.ui.Model model) {
 		final List<Book> books = modelService.searchBooks(keyword);
 
 		model.addAttribute("books", books);
@@ -52,7 +52,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/book/{id}")
-	public String findBookById(@PathVariable("id") Long id, Model model) {
+	public String findBookById(@PathVariable("id") Long id, org.springframework.ui.Model model) {
 		final Book book = modelService.findBookById(id);
 
 		model.addAttribute("book", book);
@@ -60,7 +60,7 @@ public class ModelController {
 	}
 
 	@GetMapping("/add")
-	public String showCreateForm(Book book, Model model) {
+	public String showCreateForm(Book book, org.springframework.ui.Model model) {
 		model.addAttribute("categories", categoryService.findAllCategories());
 		model.addAttribute("authors", authorService.findAllAuthors());
 		model.addAttribute("publishers", publisherService.findAllPublishers());
@@ -68,18 +68,20 @@ public class ModelController {
 	}
 
 	@RequestMapping("/add-model")
-	public String createBook(Book book, BindingResult result, Model model) {
+	public String createBook(Book book, BindingResult result, org.springframework.ui.Model model, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "add-model";
 		}
 
 		modelService.createBook(book);
 		model.addAttribute("book", modelService.findAllBooks());
+		redirectAttributes.addFlashAttribute("class", "alert-success");
+		redirectAttributes.addFlashAttribute("message", "model_created");
 		return "redirect:/modeller/model";
 	}
 
 	@GetMapping("/update/{id}")
-	public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+	public String showUpdateForm(@PathVariable("id") Long id, org.springframework.ui.Model model) {
 		final Book book = modelService.findBookById(id);
 
 		model.addAttribute("book", book);
@@ -87,7 +89,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/update-book/{id}")
-	public String updateBook(@PathVariable("id") Long id, Book book, BindingResult result, Model model) {
+	public String updateBook(@PathVariable("id") Long id, Book book, BindingResult result, org.springframework.ui.Model model) {
 		if (result.hasErrors()) {
 			book.setId(id);
 			return "update-book";
@@ -99,7 +101,7 @@ public class ModelController {
 	}
 
 	@RequestMapping("/remove-book/{id}")
-	public String deleteBook(@PathVariable("id") Long id, Model model) {
+	public String deleteBook(@PathVariable("id") Long id, org.springframework.ui.Model model) {
 		modelService.deleteBook(id);
 
 		model.addAttribute("book", modelService.findAllBooks());

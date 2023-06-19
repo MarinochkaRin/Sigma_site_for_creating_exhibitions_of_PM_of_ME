@@ -33,7 +33,7 @@ public class OrganizerController {
     }
 
 /*    @GetMapping("/users")
-    public String getUsers(@RequestParam(required = false) Integer page, Model model) {
+    public String getUsers(@RequestParam(required = false) Integer page, Book model) {
         int pageNumber = page != null && page > 0 ? page : 1;
         Page<UserIdNameRole> usersPage = userIdNameRoleService.getAllUsers(pageNumber-1);
         model.addAttribute("page", usersPage.getTotalPages());

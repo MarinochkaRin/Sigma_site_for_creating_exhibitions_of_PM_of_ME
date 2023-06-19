@@ -14,7 +14,7 @@ public class UserDto {
     private long id;
     private String username;
     private Role role;
-    private String photoId;
+/*    private String photoId;*/
 
     private String firstName;
     private String secondName;

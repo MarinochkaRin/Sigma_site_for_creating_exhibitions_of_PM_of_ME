@@ -18,7 +18,7 @@
         <div th:replace="fragments/alert :: alert"></div>
         <div class="row justify-content-center">
           <div class="col-6">
-            <form th:action="@{/ozganizer/exhibitions/cancel/}  + ${id}" method="post">
+            <form th:action="@{/organizer/exhibitions/cancel/}  + ${id}" method="post">
               <div class="row g-2 py-3">
                 <div class="col-md">
                   <h5 th:text="#{really_cancel}">Really cancel?</h5>

@@ -2,8 +2,10 @@ package com.mryndina.exhibitions.controller;
 
 import com.mryndina.exhibitions.dto.ExhibitionDto;
 import com.mryndina.exhibitions.entity.Exhibition;
+import com.mryndina.exhibitions.entity.Image;
 import com.mryndina.exhibitions.entity.User;
 import com.mryndina.exhibitions.service.ExhibitionService;
+import com.mryndina.exhibitions.service.ImageService;
 import com.mryndina.exhibitions.service.utility.Cart;
 import com.mryndina.exhibitions.service.utility.Search;
 import com.mryndina.exhibitions.dto.ExhibitionDetailsDto;
@@ -11,11 +13,23 @@ import com.mryndina.exhibitions.service.AuthService;
 import com.mryndina.exhibitions.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialException;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Consists of main views for user.
@@ -32,7 +46,8 @@ public class HomeController {
     private final ExhibitionService exhibitionService;
     private final AuthService authService;
     private final ModelMapper modelMapper;
-
+    @Autowired
+    private ImageService imageService;
     @ModelAttribute("search")
     public Search newSearch() {
         return new Search();
@@ -86,7 +101,7 @@ public class HomeController {
     }
 
 /*    @GetMapping("/profile")
-    public String profilePage(Model model) {
+    public String profilePage(Book model) {
         // Получите информацию о пользователе из базы данных или другого источника данных
         User user = UserService.getUser(); // Замените это соответствующим кодом для получения пользователя
 
@@ -127,5 +142,37 @@ public class HomeController {
         model.addAttribute("totalQuantity", cart.getQuantityTotal());
         model.addAttribute("totalPrice", cart.getPriceTotal());
         return "cart";
+    }
+    @GetMapping("/display")
+    public ResponseEntity<byte[]> displayImage(@RequestParam("id") long id) throws IOException, SQLException
+    {
+        Image image = imageService.viewById(id);
+        byte [] imageBytes = null;
+        imageBytes = image.getImage().getBytes(1,(int) image.getImage().length());
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+    }
+    @GetMapping("/al")
+    public ModelAndView home(){
+        ModelAndView mv = new ModelAndView("index");
+        List<Image> imageList = imageService.viewAll();
+        mv.addObject("imageList", imageList);
+        return mv;
+    }
+    @GetMapping("/add")
+    public ModelAndView addImage(){
+        return new ModelAndView("addimage");
+    }
+
+    // add image - post
+    @PostMapping("/add")
+    public String addImagePost(HttpServletRequest request, @RequestParam("image") MultipartFile file) throws IOException, SerialException, SQLException
+    {
+        byte[] bytes = file.getBytes();
+        Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
+
+        Image image = new Image();
+        image.setImage(blob);
+        imageService.create(image);
+        return "redirect:/organizer";
     }
 }

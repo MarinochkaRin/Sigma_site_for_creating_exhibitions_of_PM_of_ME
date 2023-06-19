@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -35,15 +37,19 @@ public class UserService {
         return userRepository.countByRole(Role.ADMIN);
     }
 
+   public User findByUsername(String username){
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User doesn't exists"));};
+
 
 
     @Transactional
-    public void createUser(String username, String password,String photoId, String firstName, String secondName, String locationPerson) {
+    public void createUser(String username, String password,/*String photoId,*/ String firstName, String secondName, String locationPerson) {
         if(userRepository.countByUsername(username) == 0) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(passwordEncoder.encode(password));
-            user.setPhotoId(photoId);
+  /*          user.setPhotoId(photoId);*/
             user.setFirstName(firstName);
             user.setSecondName(secondName);
             user.setLocationPerson(locationPerson);
@@ -53,22 +59,30 @@ public class UserService {
         }
     }
     @Transactional
-    public void createModeller(String username, String password) {
+    public void createModeller(String username, String password, /*String photoId,*/ String firstName, String secondName, String locationPerson) {
         if(userRepository.countByUsername(username) == 0) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(passwordEncoder.encode(password));
+            /*user.setPhotoId(photoId);*/
+            user.setFirstName(firstName);
+            user.setSecondName(secondName);
+            user.setLocationPerson(locationPerson);
             user.setRole(Role.MODELLER);
             userRepository.save(user);
             log.info("User created: {}", user.getUsername());
         }
     }
     @Transactional
-    public void createOrganizer(String username, String password) {
+    public void createOrganizer(String username, String password, /*String photoId,*/ String firstName, String secondName, String locationPerson) {
         if(userRepository.countByUsername(username) == 0) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(passwordEncoder.encode(password));
+   /*         user.setPhotoId(photoId);*/
+            user.setFirstName(firstName);
+            user.setSecondName(secondName);
+            user.setLocationPerson(locationPerson);
             user.setRole(Role.ORGANIZER);
             userRepository.save(user);
             log.info("Organizer created: {}", user.getUsername());

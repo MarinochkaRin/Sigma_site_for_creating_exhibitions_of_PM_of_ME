@@ -31,8 +31,8 @@ public class User implements UserDetails {
     @Column(name="ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
-    @Column(name="PHOTO_ID")
-    private String photoId;
+/*    @Column(name="PHOTO_ID")
+    private String photoId;*/
     @Column(name="FIRST_NAME")
     private String firstName;
     @Column(name="SECOND_NAME")

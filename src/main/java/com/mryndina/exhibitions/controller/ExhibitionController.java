@@ -1,20 +1,30 @@
 package com.mryndina.exhibitions.controller;
 
 import com.mryndina.exhibitions.dto.ExhibitionDetailsDto;
-import com.mryndina.exhibitions.service.AuthService;
-import com.mryndina.exhibitions.service.ExhibitionService;
+import com.mryndina.exhibitions.entity.Image;
+import com.mryndina.exhibitions.service.*;
 import com.mryndina.exhibitions.service.utility.DatesLocations;
 import com.mryndina.exhibitions.service.utility.Search;
 import com.mryndina.exhibitions.entity.Exhibition;
-import com.mryndina.exhibitions.service.LocationService;
-import com.mryndina.exhibitions.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialException;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Consists of views related to manage exhibitions.
@@ -30,7 +40,8 @@ public class ExhibitionController {
     private final LocationService locationService;
     private final OrderService orderService;
 
-
+    @Autowired
+    private ImageService imageService;
     private final AuthService authService;
     private final ModelMapper modelMapper;
     @ModelAttribute("search")
@@ -131,17 +142,68 @@ public class ExhibitionController {
     }
 
     @GetMapping("/exhibitions/cancel/{id}")
-    public String getCancelExhibition (@PathVariable int id, Model model) {
+    public String getCancelExhibition (@PathVariable int id, org.springframework.ui.Model model) {
         long orders = orderService.countByExhibitionId(id);
         model.addAttribute("orders", orders);
         return "organizer-cancel-exhibitions";
     }
-
     @PostMapping("/exhibitions/cancel/{id}")
-    public String postCancelExhibition (@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
+    public String postCancelExhibition (@PathVariable int id, org.springframework.ui.Model model, RedirectAttributes redirectAttributes) {
         exhibitionService.cancelExhibition(id);
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "exhibition_canceled");
-        return "redirect:/organizer/exhibitions";
+        return "redirect:/organizer";
+    }
+
+/*
+    @GetMapping("/exhibitions/cancel/{id}")
+    public String getCancelExhibition (@PathVariable int id, org.springframework.ui.Model model) {
+        long orders = orderService.countByExhibitionId(id);
+        model.addAttribute("orders", orders);
+        return "cancel-exhibition";
+    }
+
+    @PostMapping("/exhibitions/cancel/{id}")
+    public String postCancelExhibition (@PathVariable int id, org.springframework.ui.Model model, RedirectAttributes redirectAttributes) {
+        exhibitionService.cancelExhibition(id);
+        redirectAttributes.addFlashAttribute("class", "alert-success");
+        redirectAttributes.addFlashAttribute("message", "exhibition_canceled");
+        return "redirect:/admin/exhibitions";
+
+        */
+
+    @GetMapping("/display")
+    public ResponseEntity<byte[]> displayImage(@RequestParam("id") long id) throws IOException, SQLException
+    {
+        Image image = imageService.viewById(id);
+        byte [] imageBytes = null;
+        imageBytes = image.getImage().getBytes(1,(int) image.getImage().length());
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+    }
+    @GetMapping("/")
+    public ModelAndView home(){
+        ModelAndView mv = new ModelAndView("index");
+        List<Image> imageList = imageService.viewAll();
+        mv.addObject("imageList", imageList);
+        return mv;
+    }
+    @GetMapping("/add")
+    public ModelAndView addImage(){
+        return new ModelAndView("addimage");
+    }
+
+    // add image - post
+    @PostMapping("/add")
+    public String addImagePost(HttpServletRequest request, @RequestParam("image") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException, SerialException, SQLException
+    {
+        byte[] bytes = file.getBytes();
+        Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
+
+        Image image = new Image();
+        image.setImage(blob);
+        imageService.create(image);
+        redirectAttributes.addFlashAttribute("class", "alert-success");
+        redirectAttributes.addFlashAttribute("message", "photo_add");
+        return "redirect:/organizer";
     }
 }

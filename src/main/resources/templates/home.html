@@ -34,7 +34,7 @@
             </div>
             <div class="col-md d-flex">
                 <button th:text="#{apply}" class="btn btn-outline-secondary ms-2" type="submit">Apply</button>
-                <button th:text="#{reset}" onclick="location.href='?resetFilter=true'" class="btn btn-outline-secondary ms-2 text-center" type="button">Reset</button>
+                <!--<button th:text="#{reset}" onclick="location.href='?resetFilter=true'" class="btn btn-outline-secondary ms-2 text-center" type="button">Reset</button>-->
                 <button th:text="#{cart}" onclick="location.href='/cart'" class="btn btn-outline-success ms-2 text-center" type="button">cart</button>
             </div>
         </div>
@@ -45,6 +45,7 @@
         <thead>
         <tr>
             <th scope="col"></th>
+            <th th:text="#{image}" scope="col">Image</th>
             <th th:text="#{theme}" scope="col">Theme</th>
             <th th:text="#{duration}" scope="col">Date</th>
             <th th:text="#{working_hours}" scope="col">Working hours</th>
@@ -65,6 +66,7 @@
                     </div>
                 </form>
             </th>
+            <td><img width="250px"  th:src="@{${'/display?id=' + exhibition.id}}" alt=""></td>
             <td th:text="${exhibition.theme}">Theme</td>
             <td>
                 <ul class="list-unstyled">

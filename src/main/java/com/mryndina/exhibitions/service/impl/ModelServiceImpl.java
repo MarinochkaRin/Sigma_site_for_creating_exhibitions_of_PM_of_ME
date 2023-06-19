@@ -15,6 +15,7 @@ public class ModelServiceImpl implements ModelService {
 
 	private final ModelRepository modelRepository;
 
+
 	public ModelServiceImpl(ModelRepository modelRepository) {
 		this.modelRepository = modelRepository;
 	}
@@ -28,10 +29,7 @@ public class ModelServiceImpl implements ModelService {
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@Override
 	public List<Book> searchBooks(String keyword) {
-		if (keyword != null) {
-			return modelRepository.search(keyword);
-		}
-		return modelRepository.findAll();
+				return modelRepository.findAll();
 	}
 
 	@Override

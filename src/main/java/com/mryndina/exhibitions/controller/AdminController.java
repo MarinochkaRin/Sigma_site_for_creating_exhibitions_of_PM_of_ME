@@ -15,7 +15,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,7 +38,7 @@ public class AdminController {
     private final OrderService orderService;
     private final ModelService modelService;
     @GetMapping
-    public String getDashboard(Model model) {
+    public String getDashboard(org.springframework.ui.Model model) {
         model.addAttribute("totalExhibitions", exhibitionService.getQuantity());
         model.addAttribute("totalUsers", userService.getUserQuantity());
         model.addAttribute("totalAdmins", userService.getAdminQuantity());
@@ -49,7 +48,7 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public String getUsers(@RequestParam(required = false) Integer page, Model model) {
+    public String getUsers(@RequestParam(required = false) Integer page, org.springframework.ui.Model model) {
         int pageNumber = page != null && page > 0 ? page : 1;
         Page<UserIdNameRole> usersPage = userIdNameRoleService.getAllUsers(pageNumber-1);
         model.addAttribute("page", usersPage.getTotalPages());
@@ -75,7 +74,7 @@ public class AdminController {
     public String getExhibitions(@ModelAttribute Search search,
                                  @RequestParam(required = false) Integer page,
                                  @RequestParam(required = false) boolean resetFilter,
-                                 Model model) {
+                                 org.springframework.ui.Model model) {
         int pageNumber = page != null && page > 0 ? page : 1;
         if(resetFilter) search = newSearch();
         Page<Exhibition> exhibitionsPage = exhibitionService.searchAndSortExhibitions(
@@ -100,7 +99,7 @@ public class AdminController {
 
 
     @GetMapping("/exhibitions/{id}")
-    public String getExhibition(@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
+    public String getExhibition(@PathVariable int id, org.springframework.ui.Model model, RedirectAttributes redirectAttributes) {
         authService.addUsernameAttribute(model);
         try {
             model.addAttribute("exhibition", modelMapper.map(exhibitionService.getExhibition(id), ExhibitionDetailsDto.class));
@@ -115,7 +114,7 @@ public class AdminController {
 
 
     @GetMapping("/admin/exhibitions/{id}")
-    public String getExhibitio(@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
+    public String getExhibitio(@PathVariable int id, org.springframework.ui.Model model, RedirectAttributes redirectAttributes) {
         try {
             model.addAttribute("exhibition", exhibitionService.getExhibition(id));
         } catch (Exception e) {
@@ -130,12 +129,12 @@ public class AdminController {
 
 
     @GetMapping("/exhibitions/new/check-locations")
-    public String getCheckLocations(Model model) {
+    public String getCheckLocations(org.springframework.ui.Model model) {
         model.addAttribute("datesLocations", new DatesLocations());
         return "check-locations";
     }
     @GetMapping("/exhibitions/new/details")
-    public String getDetails(@ModelAttribute DatesLocations datesLocations, Model model) {
+    public String getDetails(@ModelAttribute DatesLocations datesLocations, org.springframework.ui.Model model) {
         datesLocations.setLocations(locationService.checkAvailability(datesLocations.getStartDate(), datesLocations.getEndDate()));
         Exhibition exhibition = new Exhibition();
         exhibition.setStartDate(datesLocations.getStartDate());
@@ -154,26 +153,26 @@ public class AdminController {
     }
 
     @GetMapping("/exhibitions/new")
-    public String addExhibition(Model model) {
+    public String addExhibition(org.springframework.ui.Model model) {
         return "redirect:/organizer/exhibitions/new/check-locations";
     }
 
     @GetMapping("/exhibitions/cancel/{id}")
-    public String getCancelExhibition (@PathVariable int id, Model model) {
+    public String getCancelExhibition (@PathVariable int id, org.springframework.ui.Model model) {
         long orders = orderService.countByExhibitionId(id);
         model.addAttribute("orders", orders);
         return "cancel-exhibition";
     }
 
     @PostMapping("/exhibitions/cancel/{id}")
-    public String postCancelExhibition (@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
+    public String postCancelExhibition (@PathVariable int id, org.springframework.ui.Model model, RedirectAttributes redirectAttributes) {
         exhibitionService.cancelExhibition(id);
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "exhibition_canceled");
         return "redirect:/admin/exhibitions";
     }
     @GetMapping("/orders")
-    public String getOrders(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer exhibitionId, Model model) {
+    public String getOrders(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer exhibitionId, org.springframework.ui.Model model) {
         int pageNumber = page != null && page > 0 ? page : 1;
         Page<Order> ordersPage;
         if(exhibitionId == null) {
@@ -189,7 +188,7 @@ public class AdminController {
         return "admin-orders";
     }
     @RequestMapping("/model")
-    public String findAllBooks(Model model) {
+    public String findAllBooks(org.springframework.ui.Model model) {
         final List<Book> books = modelService.findAllBooks();
 
         model.addAttribute("books", books);
@@ -197,7 +196,7 @@ public class AdminController {
     }
 
     @RequestMapping("/remove-book/{id}")
-    public String deleteBook(@PathVariable("id") Long id, Model model) {
+    public String deleteBook(@PathVariable("id") Long id, org.springframework.ui.Model model) {
         modelService.deleteBook(id);
 
         model.addAttribute("book", modelService.findAllBooks());

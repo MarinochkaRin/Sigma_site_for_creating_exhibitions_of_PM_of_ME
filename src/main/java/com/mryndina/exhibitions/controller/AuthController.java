@@ -1,10 +1,16 @@
 package com.mryndina.exhibitions.controller;
 
+import com.mryndina.exhibitions.entity.User;
+/*import com.mryndina.exhibitions.service.FileService;*/
 import com.mryndina.exhibitions.service.UserService;
+import com.mryndina.exhibitions.service.utility.FileWrapper;
+import com.mryndina.exhibitions.util.files.S3Service;
+import com.mryndina.exhibitions.util.uuid.UUIDHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
@@ -20,6 +26,8 @@ import java.util.Map;
 
 public class AuthController {
     private final UserService userService;
+/*    private FileService fileService;*/
+    private S3Service s3Service;
 
 
     @GetMapping("/signin")
@@ -34,7 +42,7 @@ public class AuthController {
         return "redirect:/signin";
     }
 /*    @GetMapping("/user/profile/{userId}")
-    public String getUserProfile(@PathVariable("userId") Long userId, Model model) {
+    public String getUserProfile(@PathVariable("userId") Long userId, Book model) {
         // Получение данных пользователя по идентификатору userId
         User user = userService.getUserById(userId);
 
@@ -47,23 +55,29 @@ public class AuthController {
 
     @GetMapping("/register")
     public String getRegister(Model model) {
+/*        FileWrapper fileWrapper = new FileWrapper();
+        fileWrapper.addFile(new MultipartFile );
+        model.addAttribute("file", fileWrapper);*/
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam Map<String, String> body, @RequestParam("role") String role, Model model, RedirectAttributes redirectAttributes) {
+    public String registerUser(/*@RequestParam("photoId") MultipartFile file,*/ @RequestParam Map<String, String> body, @RequestParam("role") String role, User user, RedirectAttributes redirectAttributes) {
         if (role.equals("ADMIN")) {
             userService.createAdmin(body.get("username"), body.get("password"));
             redirectAttributes.addFlashAttribute("message", "admin_created");
         } else if (role.equals("ORGANIZER")) {
-            userService.createOrganizer(body.get("username"), body.get("password"));
+            userService.createOrganizer(body.get("username"), body.get("password"), body.get("firstName"), body.get("secondName") , body.get("locationPerson"));
             redirectAttributes.addFlashAttribute("message", "organizer_created");
         } else if (role.equals("MODELLER")) {
-            userService.createModeller(body.get("username"), body.get("password"));
+            userService.createModeller(body.get("username"), body.get("password"), body.get("firstName"), body.get("secondName") , body.get("locationPerson"));
             redirectAttributes.addFlashAttribute("message", "modeller_created");
         } else {
-            userService.createUser(body.get("username"), body.get("password"),body.get("photoId"), body.get("firstName"), body.get("secondName") , body.get("locationPerson"));
+         /*   String filename = UUIDHelper.random();
+            user.setPhotoId(filename);*/
+            userService.createUser(body.get("username"), body.get("password"), body.get("firstName"), body.get("secondName") , body.get("locationPerson"));
             redirectAttributes.addFlashAttribute("message", "user_registered");
+/*            s3Service.uploadImage(filename, file);*/
         }
 
         redirectAttributes.addFlashAttribute("class", "alert-success");
